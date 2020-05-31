@@ -1,0 +1,92 @@
+{% extends "landing_temp.html" %} {% block content %}
+{% block title %}{% endblock %}
+{% block meta %}
+<meta name="description" content="Get most trending Sunglasses, Eyeglasses for boys & girls. FREE shipping, Cash on Delivery and 10 Days return only at redgingger.com">
+<!-- Google / Search Engine Tags -->
+<meta itemprop="name" content="RedGingger - Shop for Trending Sunglasses">
+<meta itemprop="description" content="Get most trending Sunglasses, Eyeglasses for boys & girls. FREE shipping, Cash on Delivery and 10 Days return only at redgingger.com">
+<meta itemprop="image" content="https://s3.ap-south-1.amazonaws.com/cdn-red/bne3.jpg">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://redgingger.com">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RedGingger - Shop for Trending Sunglasses">
+<meta property="og:description" content="Get most trending Sunglasses, Eyeglasses for boys & girls. FREE shipping, Cash on Delivery and 10 Days return only at redgingger.com">
+<meta property="og:image" content="https://s3.ap-south-1.amazonaws.com/cdn-red/bne3.jpg">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RedGingger - Shop for Trending Sunglasses">
+<meta name="twitter:description" content="Get most trending Sunglasses, Eyeglasses for boys & girls. FREE shipping, Cash on Delivery and 10 Days return only at redgingger.com">
+{% endblock %}
+<div class="banner container" style="width:100%;background-color:#fff;margin:0;">
+    <div class="card card-image" style="position:relative">
+        {% for link in links %}
+        <img src="{{link.link}}" alt="" class="mySlides">
+        {% endfor %}
+    </div>
+</div>
+
+<!-- <div class="container">
+    <div class="p__categories">
+        <p style="text-align:right">
+            <a class="active">All</a>
+            <a  href="{{url_for('boys_products')}}">Boys</a>
+            <a  href="{{url_for('girls_products')}}">Girls</a>
+        </p>
+    </div>
+</div>
+-->
+
+<div class="hero-slider-section text-lg-left text-center" style="background-color:#fff;">
+    <div class="container hero-content">
+        <div class="row">
+            <div class="col-lg-6 col-12 mr-auto">
+                <div class="d-flex align-items-start flex-column pr-lg-5 hero-entry">
+                                                    <div class="content-text" style="padding-top:15%;text-align:left;">
+
+                <img style="width: 200px;position: relative;" src="/product_images?image=logo.png" alt="logo">
+                        <h1 style="font-family: Roboto Slab ;line-height:0.95;font-weight: 900;color: #003976; margin-bottom: 21px;">Welcome to Siddhi Vinayak Bake-Well Pvt. Ltd.</h1>
+                        <p style="width:90%;">Manufacturing, distributing and technically supporting high quality bakery ingredients to the Indian Market since last 10 years.</p>
+                        </div>
+
+                        
+                                            </div>
+
+                                            
+            </div>
+            <div class="col-lg-6 col-12 ml-auto pr-0" style="height: 500px;">
+            <div class="slider-image slick-initialized slick-slider">
+            <div class="slick-track">
+                <img style="width: 622px;position: relative;left: 0px;top: 0px;z-index: 999;opacity: 1;transition: opacity 500ms linear 0s;border-radius:25px 0px 0px 25px;margin-right:0px;" src="/product_images?image=slide1.jpg" alt="slide1">
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <div class="col-12 ml-auto pr-0" style="width:100%;">
+        <img style="width: 100%;transition: opacity 500ms ease-in-out  2s;margin:0px;" src="/product_images?image=vision.png" alt="crumbs">
+    </div>
+    </div>
+
+<script>
+        var slideIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none"; 
+            }
+            slideIndex++;
+            if (slideIndex > x.length) {slideIndex = 1} 
+            x[slideIndex-1].style.display = "block"; 
+            setTimeout(carousel, 2500); // Change image every 2 seconds
+        }
+</script>
+<div class="footer-curve" style="background-color:#fff;"></div>    
+{% endblock %}

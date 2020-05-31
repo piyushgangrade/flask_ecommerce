@@ -1,0 +1,70 @@
+{% extends "template.html" %}
+{% block title %}{{ user.full_name }} - {% endblock %}
+{% block content %}
+<div class="cart user-profile container">
+
+
+
+<div class="hero-slider-section text-center">
+    <div class="container hero-content">
+        <div class="row">
+            <div class="col-12 mr-auto text-center">
+                <div class="d-flex align-items-start flex-column pr-lg-5 hero-entry text-center">
+                <div class="content-text text-center" style="text-align:center;padding-top:25px;">
+                <h1 class="title" style="font-family: Roboto Slab ;line-height:0.95;font-weight: 900;color: #003976; margin-bottom: 21px;">
+                    Welcome! {{ user.full_name }}</h1>
+                </div>
+                        
+                </div>
+
+                                            
+            </div>
+        </div>
+    </div>
+    </div>
+
+    {% for product in products %}
+    <div class="card">
+        <div class="item">
+            <div class="left">
+                <img src="/product_images?image={{product.image_1}}" alt="">
+            </div>
+            <div class="right">
+                <p class="quantity">Order ID: {{ product.buyhistory.order_id }}</p>
+                <p class="quantity">{{ product.name }}</p>
+                <p class="quantity">Quantity : {{ product.buyhistory.product_quantity }}</p>
+                <p class="quantity">Status : {{ product.buyhistory.status }}</p>
+                <p class="quantity">Order on : {{product.buyhistory.buy_time}}</p>
+            </div>
+        </div>
+        <div class="button">
+            {%if product.buyhistory.status == 'Initiated'%}
+            <a class="btn btn-highlight" href="{{url_for('cancel_order', id=product.buyhistory.order_id)}}">Cancel!</a>
+            {%elif product.buyhistory.status == 'Delivered' %}
+            <a class="btn btn-success"  >Delivered</a>
+            {% elif product.buyhistory.status == 'Canceled'%}
+            <a class="btn btn-highlight" href="#">Canceled!</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="hero-slider-section text-center">
+    <div class="container hero-content">
+        <div class="row">
+            <div class="col-12 mr-auto text-center">
+                <div class="d-flex align-items-start flex-column pr-lg-5 hero-entry text-center">
+                        <a href="/shop">
+                        <span class="btn btn-highlight"><span class="material-icons">
+                            arrow_back
+                            </span> &nbsp;Back to home page</span></a>
+                        </div>
+                        
+                                            </div>
+
+                                            
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

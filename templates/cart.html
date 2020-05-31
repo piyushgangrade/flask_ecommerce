@@ -1,0 +1,57 @@
+{% extends "template.html" %} 
+{% block title %}Cart - {% endblock %}
+{% block content %} 
+<div class="cart container">
+    <div class="col-12">
+    <div class="content-text text-center" style="text-align:center;padding-top:25px;">
+    <h1 style="font-family: Roboto Slab ;line-height:0.95;font-weight: 900;color: #003976; margin-bottom: 21px;">Your Cart</h1>
+    </div>
+    </div>
+    <div class="card">
+        {% for product in products %}
+        <div class="item">
+            <div class="left">
+                <img src="/product_images?image={{product.image_1}}" alt="">
+            </div>
+            <div class="right">
+                <p>{{ product.name }}</p>
+                <p class="price" style="font-weight:900;">Price : ₹{{ product.buy_price }} x {{ product.cart.count }} =  ₹{{product.buy_price * product.cart.count }}</p>
+                <p class="quantity">Quantity : {{ product.cart.count }}</p>
+                <p class="note">To increase quantity click again on add to cart</p>
+                <a class="btn btn-large" href="{{url_for('delete_to_cart', product_id=product.id)}}">Remove</a>
+                {% if product.count >= 1 %}
+                <a class="btn btn-highlight" href="{{url_for('add_to_cart', product_id=product.id)}}">Increase Quantity</a>
+            {% else %}
+                
+            {% endif %}     
+            </div>
+        </div>
+        {% else %}
+            <p style="text-align: center; width:100%">No Products has been added to your cart.</p>
+        {% endfor %}
+        <div class="button">
+            {% if products %}
+                <a class="btn btn-highlight" href="{{url_for('checkout')}}">Checkout</a>
+           {% endif %}
+        </div>
+    </div>
+</div>
+<div class="hero-slider-section text-center">
+    <div class="container hero-content">
+        <div class="row">
+            <div class="col-12 mr-auto text-center">
+                <div class="d-flex align-items-start flex-column pr-lg-5 hero-entry text-center">
+                        <a href="{{url_for('index')}}">
+                        <span class="btn btn-highlight"><span class="material-icons">
+                            arrow_back
+                            </span> &nbsp;Continue Shopping</span></a>
+                        </div>
+                        
+                                            </div>
+
+                                            
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
