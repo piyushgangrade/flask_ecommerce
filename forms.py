@@ -117,3 +117,8 @@ class new_review(FlaskForm):
     user = StringField('User')
     order_id = StringField('Order-ID')
     text = TextAreaField('Review')
+
+
+class new_notification(FlaskForm):
+    user = StringField('User')
+    text = TextAreaField('Notification')

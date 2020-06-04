@@ -728,3 +728,51 @@ def dashboard_review_new():
 @app.route('/reviews/')
 def all_reviews():
     return render_template('reviews.html', user=current_user, rev=models.Review)
+
+
+# New feature of notification
+
+
+@app.route('/dashboard/notifications')
+def add_notification_dashboard():
+        return render_template("dashboard/html/notifications.html", user=current_user, app=app, notifications=models.Notification)
+
+@app.route('/dashboard/notifications/edit/<id>', methods=['GET', 'POST'])
+def edit_notification_dashboard(id):
+    if current_user.is_admin:
+        notification = models.Notification.get(models.Notification.id == id)
+        form = forms.new_notification(obj=notification)
+        if form.validate_on_submit():
+            q = models.Notification.update(
+                user = form.user.data,
+                text = form.text.data
+            ).where(models.Notification.id == id)
+            q.execute()
+            return redirect(url_for('add_notification_dashboard'))
+        return render_template("dashboard/html/notifications/edit.html", user=current_user, form=form)
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/dashboard/notifications/delete/<id>', methods=['GET'])
+def delete_notification_dashboard(id):
+    if current_user.is_admin:
+        product_ins = models.Notification.get(models.Notification.id == id)
+        product_ins.delete_instance()
+        return redirect(url_for('add_notification_dashboard'))
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/dashboard/notifications/new/', methods=('GET', 'POST'))
+@login_required
+def dashboard_notification_new():
+    if current_user.is_admin:
+        form = forms.new_notification()
+        if form.validate_on_submit():
+            models.Notification.add_notification(
+                user = form.user.data,
+                text = form.text.data
+            )
+            return redirect(url_for('add_notification_dashboard'))
+        return render_template("dashboard/html/notifications/new.html", user=current_user, form=form)
+    else:
+        return redirect(url_for('index'))

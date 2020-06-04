@@ -236,7 +236,31 @@ class Banner(Model):
             raise ValueError("Some Error Happened")
 
 
+# New Notification feature
+
+
+class Notification(Model):
+    user = CharField()
+    text = TextField()
+    comment_time = DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        database = DATABASE
+    
+    @classmethod
+    def add_notification(cls, user, text):
+        try:
+            cls.create(
+                user = user, 
+                text = text
+            )
+        except IntegrityError :
+            raise ValueError("Some Error Happened")
+
+
+
+
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Product, Cart, BuyHistory, Comment, Review, Banner], safe=True)
+    DATABASE.create_tables([User, Product, Cart, BuyHistory, Comment, Review, Notification, Banner], safe=True)
     DATABASE.close()

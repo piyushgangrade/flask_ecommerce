@@ -1,0 +1,32 @@
+{% extends "dashboard/html/layout.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-content">
+                    <a href="{{ url_for('dashboard_notification_new') }}" class="btn btn-primary">Add Notification</a>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="row">
+            {% for item in notifications %}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title">User: {{item.user}}</p>
+                        <p class="category">Notification: {{item.text}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url_for('edit_notification_dashboard', id=item.id) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ url_for('delete_notification_dashboard', id=item.id) }}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <p style="text-align:center"></p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
