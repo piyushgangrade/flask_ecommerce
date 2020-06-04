@@ -7,9 +7,28 @@
                     <div class="card-header" data-background-color="purple">
                         <h4 class="title">Orders</h4>
                     </div>
+                    {% set count = [0] %}
+                    {% set undelivered = [0] %}
+                    
+                    {% for i in products %}
+                        {% if i.status != "Canceled" %}
+                        {% if count.append(count.pop() + 1) %}{% endif %} 
+                        {# increment count by 1 #}
+                        {% endif %}
+
+                        {% if i.status != "Canceled" and i.status != "Delivered" %}
+                        {% if undelivered.append(undelivered.pop() + 1) %}{% endif %}
+                        {# increment undelivered count by 1 #}
+                        {% endif %}
+                    {% endfor %}
                     <div class="card-content table-responsive">
                         <table class="table table-hover">
                             <thead class="text-primary">
+                            
+                            <tr>
+                                <th class="text-primary text-center" style="color:#003976;font-weight: 900;" colspan="11">Total Order : <strong>{{ count }}</strong> | Undelivered : <strong>{{ undelivered }}</strong></th>
+                            </tr>
+                            <tr>
                                 <th>Buyer Name</th>
                                 <th>Product Name</th>
                                 <th>Quantity</th>
@@ -23,12 +42,13 @@
                                 <th>Edit</th>
                             </tr></thead>
                             <tbody>
+
                                 {% for item in products %}
                                     <tr>
                                         <td class="alert alert-success" colspan="11">Order ID : <strong>{{ item.order_id }}</strong></td>
                                     </tr>
                                     <tr>
-                                        <td>{{ item.buyer_name }}</td>
+                                        <td>{{ loop.index }}. {{ item.buyer_name }}</td>
                                         <td>{{ item.product_name }}</td>
                                         <td>{{ item.product_quantity }}</td>
                                         <td>{{ item.buyer_address }}</td>
@@ -38,7 +58,7 @@
                                         <td>{{ item.delivered }}</td>
                                         <td>{{ item.buy_time }}</td>
                                         <td>{{ item.deliverTime }}</td>
-                                        {% if item.status != "Canceled" %}
+                    {% if item.status != "Canceled" %}
                                         <td><a href="{{ url_for('dashboard_orders_edit', order_id=item.id) }}" class="btn btn-primary btn-sm">Edit</a></td>
                                         {% endif %}
                                     </tr>

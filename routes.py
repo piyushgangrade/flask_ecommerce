@@ -114,7 +114,7 @@ def register():
         except ValueError:
             pass
         # Send Email
-        # send_email("Account Registered", 'support@svbakewell.com', [form.email.data], '', render_template('email/register.html', user=form.full_name.data))
+        # send_email("Account Registered", 'support@abcbakewell.com', [form.email.data], '', render_template('email/register.html', user=form.full_name.data))
         next = request.args.get('next')
         return redirect(next or url_for('index'))
     return render_template('register.html', form=form, user=current_user)
@@ -175,8 +175,8 @@ def change_password():
             q = models.User.update(password=generate_password_hash(form.password.data)).where(models.User.email == current_user.email)
             q.execute()
             # Send Emails
-            msg = Message('Hello', sender = 'svbakewell@yahoo.com', recipients = [current_user.email])
-            msg.body = "Your password of Siddhi Vinayak Bakwe-well account has been succesfully changed!"
+            msg = Message('Hello', sender = 'abcbakewell@yahoo.com', recipients = [current_user.email])
+            msg.body = "Your password of ABC Bake-well account has been succesfully changed!"
             mail.send(msg)
             return redirect(url_for('index'))
         else:
@@ -211,8 +211,8 @@ def contact_us():
     if form.validate_on_submit():
         # Send Email
         message = "Hello Navneet,\nA new contact mail from {0}\n{1}\n{2}\n{3}".format(form.name.data, form.email.data, form.mobile_no.data, form.message.data)
-        send_email("Contact Form Message", 'support@svbakewell.com', ['nkaushik1998@gmail.com'], message, '')
-        send_email("Contact Form Message", 'support@svbakewell.com', ['niteshkumarniranjan@gmail.com'], message, '')
+        send_email("Contact Form Message", 'support@abcbakewell.com', ['nkaushik1998@gmail.com'], message, '')
+        send_email("Contact Form Message", 'support@abcbakewell.com', ['niteshkumarniranjan@gmail.com'], message, '')
         return redirect(url_for('thanks_contact'))
     return render_template("contact.html", user=current_user, form=form)
 
@@ -648,7 +648,7 @@ def reset():
             token=token,
             _external=True)
 
-        msg = Message('Password reset requested', sender = 'support@svbakewell.com', recipients = [form.email.data])
+        msg = Message('Password reset requested', sender = 'support@abcbakewell.com', recipients = [form.email.data])
         msg.html = """
         Hello {0},
         Password reset request has been initiated for you account to reset the password please click the link below
