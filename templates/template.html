@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="author" content="Decoder Hub">
-    <meta name="twitter:image" content="https://redgingger.com/product_images?image=12th.jpg">
+    <meta name="twitter:image" content="https://svbakewell.com/product_images?image=12th.jpg">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.ico') }}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -24,51 +24,16 @@
     <style type="text/css">
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;600;900&display=swap');
         a:hover, a:focus {
-    color: #ffffff;
-    text-decoration: none;
+        color: #ffffff;
+        text-decoration: none;
         }
-        .field .inputGroup {
-            display: inline-block;margin-left:15px;
-        }
-        .field .inputGroup label {
-    color: #000;
-    font-weight: 600;font-size:1.2em; padding:5px;
-        transition: all 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
+
+    .g-recaptcha {
+        display: inline-block;padding-top: 10px;    
     }
 
 
-    .field .inputGroup input:checked ~ label {
-      color: #003976;}
-
-
-      .inputGroup input[type='radio'] {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        outline: none;
-        border: 3px solid gray;
-    }
-
-    .inputGroup input[type='radio']:before {
-        content: '';
-        display: block;
-        width: 60%;
-        height: 60%;
-        margin: 20% auto;
-        border-radius: 50%;
-    }
-
-    .inputGroup input[type="radio"]:checked:before {
-        background: #003976;
-        
-    }
-    
-    .inputGroupinput[type="radio"]:checked {
-      border-color:#003976;
-    }
-
-
-        </style> 
+    </style> 
     
     <script>
     var loadDeferredStyles = function() {
@@ -246,12 +211,12 @@
         </div>
     </header>
     <div id="barba-wrapper">
-    <div class="content" style="margin: 0 0">
+    <div class="content" style="margin: 0 0;">
         {% block content %} {% endblock %}
     </div>
     </div>
     <footer class="main-footer">
-        <div class="left">
+        <div class="left" style="padding-top:10px;">
             Copyright &copy;
             Siddhi Vinayak Bake-Well Pvt. Ltd. All rights reserved | <a href="/about">About Us</a> | <a href="/return">Return Policy</a> | <a href="/contact-us">Contact Us</a>
         </div>
@@ -265,12 +230,12 @@
         {
           "@context": "http://schema.org",
           "@type": "Organization",
-          "name": "RedGingger",
-          "url": "https://redgingger.com/",
+          "name": "SiddhiVinayakBakewell",
+          "url": "https://SiddhiVinayakBakewell.com/",
           "sameAs": [
-            "https://www.facebook.com/redgingger2018",
-            "http://instagram.com/redgingger2018",
-            "http://twitter.com/redgingger2018"
+            "https://www.facebook.com/SiddhiVinayakBakewell",
+            "http://instagram.com/SiddhiVinayakBakewell",
+            "http://twitter.com/SiddhiVinayakBakewell"
           ]
         }
         </script>

@@ -3,13 +3,12 @@ All forms for the website
 '''
 
 from flask_uploads import IMAGES, UploadSet
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm,  RecaptchaField    
 from flask_wtf.file import FileAllowed, FileField, FileRequired
-from wtforms import IntegerField, PasswordField, StringField, TextAreaField
-from wtforms.validators import (DataRequired, Email, Length, ValidationError,
-                                equal_to, regexp)
+from wtforms import IntegerField, PasswordField, StringField, TextAreaField, BooleanField
+from wtforms.validators import DataRequired, Email, Length, ValidationError, equal_to, regexp, NumberRange
 from wtforms import ValidationError
-
+import re 
 import models
 
 images = UploadSet('images', IMAGES)
@@ -22,19 +21,24 @@ def email_exists(form, field):
 class RegisterForm(FlaskForm):
     full_name = StringField('Full Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(),Email(),email_exists])
-    password = PasswordField('Password', validators=[DataRequired(),Length(min=6), equal_to('password2', message='Passwords must match')])
-    password2 = PasswordField('Confirm Password', validators=[DataRequired()])
-    mobile_no = IntegerField('Mobile No', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(),Length(min=8)])
+    password2 = PasswordField('Confirm Password', validators=[DataRequired(),equal_to('password', message='Passwords must match')])
+    mobile_no = StringField('Mobile Number', validators=[DataRequired(),regexp('^(\d{3})(\d{3})(\d{4})$', message="Enter 10 digit phone number.")])
+    accept_tos = BooleanField('I accept the TOS', validators=[DataRequired(message="Accept this to proceed.")])
+    recaptcha = RecaptchaField()
+
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(),Email()])
     password = PasswordField('Password', validators=[DataRequired()])
+    recaptcha = RecaptchaField()
 
 class ContactForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(),Email()])
-    mobile_no = IntegerField("Mobile No", validators=[DataRequired()])
+    mobile_no = StringField("Mobile No", validators=[DataRequired(),regexp('^(\d{3})(\d{3})(\d{4})$', message="Enter 10 digit phone number.")])
     message = TextAreaField('Your Message', validators=[DataRequired()])
+    recaptcha = RecaptchaField()
 
 class new_product_form(FlaskForm):
     name = StringField('Product Name', validators=[DataRequired()])
@@ -95,7 +99,7 @@ class Checkout_form(FlaskForm):
     full_name = StringField('Full Name', validators=[DataRequired()])
     room_no = StringField('Room no', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    mobile = IntegerField("Mobile No", validators=[DataRequired()])
+    mobile = StringField("Mobile No", validators=[DataRequired(),regexp('^(\d{3})(\d{3})(\d{4})$', message="Enter 10 digit phone number.")])
 
 class new_password(FlaskForm):
     old_password = PasswordField('Old Password', validators=[DataRequired()])
@@ -104,6 +108,7 @@ class new_password(FlaskForm):
 
 class EmailForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
+    recaptcha = RecaptchaField()
 
 class PasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])

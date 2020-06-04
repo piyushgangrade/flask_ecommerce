@@ -10,7 +10,6 @@
                     <div class="card-content table-responsive">
                         <table class="table table-hover">
                             <thead class="text-primary">
-                                <tr><th>ID</th>
                                 <th>Buyer Name</th>
                                 <th>Product Name</th>
                                 <th>Quantity</th>
@@ -26,7 +25,9 @@
                             <tbody>
                                 {% for item in products %}
                                     <tr>
-                                        <td>{{ item.id }}</td>
+                                        <td class="alert alert-success" colspan="11">Order ID : <strong>{{ item.order_id }}</strong></td>
+                                    </tr>
+                                    <tr>
                                         <td>{{ item.buyer_name }}</td>
                                         <td>{{ item.product_name }}</td>
                                         <td>{{ item.product_quantity }}</td>
@@ -37,7 +38,9 @@
                                         <td>{{ item.delivered }}</td>
                                         <td>{{ item.buy_time }}</td>
                                         <td>{{ item.deliverTime }}</td>
+                                        {% if item.status != "Canceled" %}
                                         <td><a href="{{ url_for('dashboard_orders_edit', order_id=item.id) }}" class="btn btn-primary btn-sm">Edit</a></td>
+                                        {% endif %}
                                     </tr>
                                 {% endfor %}
                             </tbody>

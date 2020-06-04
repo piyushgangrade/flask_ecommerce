@@ -29,6 +29,12 @@ app = Flask(__name__)
 
 app.secret_key = 'UiOp0987' # Your sceret key
 
+# app config for recaptcha
+
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+app.config['RECAPTCHA_PRIVATE_KEY'] = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
+app.config['TESTING'] = True
+
 # app.config['UPLOADED_<Name of Upload Set In Uppercase>_DEST']
 app.config['UPLOADED_IMAGES_DEST'] = 'images/uploads/products'
 
@@ -96,7 +102,6 @@ def after_request(response):
 def register():
     form = forms.RegisterForm()
     if form.validate_on_submit():
-        flash("Awesome! You have registerd to Our Site", category='Success')
         try:
             models.User.create_user(
                 full_name = form.full_name.data,
@@ -109,7 +114,7 @@ def register():
         except ValueError:
             pass
         # Send Email
-        # send_email("Account Registered", 'support@redgingger.com', [form.email.data], '', render_template('email/register.html', user=form.full_name.data))
+        # send_email("Account Registered", 'support@svbakewell.com', [form.email.data], '', render_template('email/register.html', user=form.full_name.data))
         next = request.args.get('next')
         return redirect(next or url_for('index'))
     return render_template('register.html', form=form, user=current_user)
@@ -142,7 +147,7 @@ def login():
 def logout():
     logout_user()
     flash("Successfully logged out. Come back again!!", "Success")
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 @app.route('/profile/')
@@ -158,7 +163,6 @@ def user_profile():
 def cancel_order(id):
     q = models.BuyHistory.update(status="Canceled").where(models.BuyHistory.order_id == id)
     q.execute()
-    flash('Order Canceled!')
     return redirect(url_for('user_profile'))
 
 @app.route('/new_password/', methods=('GET', 'POST'))
@@ -171,8 +175,8 @@ def change_password():
             q = models.User.update(password=generate_password_hash(form.password.data)).where(models.User.email == current_user.email)
             q.execute()
             # Send Emails
-            msg = Message('Hello', sender = 'support@redgingger.com', recipients = [current_user.email])
-            msg.body = "Your password of RedGingger has been succesfully changed!"
+            msg = Message('Hello', sender = 'svbakewell@yahoo.com', recipients = [current_user.email])
+            msg.body = "Your password of Siddhi Vinayak Bakwe-well account has been succesfully changed!"
             mail.send(msg)
             return redirect(url_for('index'))
         else:
@@ -207,8 +211,8 @@ def contact_us():
     if form.validate_on_submit():
         # Send Email
         message = "Hello Navneet,\nA new contact mail from {0}\n{1}\n{2}\n{3}".format(form.name.data, form.email.data, form.mobile_no.data, form.message.data)
-        send_email("Contact Form Message", 'support@redgingger.com', ['nkaushik1998@gmail.com'], message, '')
-        send_email("Contact Form Message", 'support@redgingger.com', ['niteshkumarniranjan@gmail.com'], message, '')
+        send_email("Contact Form Message", 'support@svbakewell.com', ['nkaushik1998@gmail.com'], message, '')
+        send_email("Contact Form Message", 'support@svbakewell.com', ['niteshkumarniranjan@gmail.com'], message, '')
         return redirect(url_for('thanks_contact'))
     return render_template("contact.html", user=current_user, form=form)
 
@@ -533,7 +537,6 @@ def add_to_cart(product_id):
             count = 5
         )
 
-    flash("Successfully added to cart!")
     return redirect(url_for('cart_index'))
 
 
@@ -583,7 +586,7 @@ def checkout():
             pass
 
         flash("You Order has been placed Successfully!", "Success")
-        return redirect(url_for('index'))
+        return redirect(url_for('user_profile'))
 
     return render_template("checkout.html", user=current_user, products=products, totalprice=totalprice, tax=tax)
 
@@ -645,7 +648,7 @@ def reset():
             token=token,
             _external=True)
 
-        msg = Message('Password reset requested', sender = 'support@redgingger.com', recipients = [form.email.data])
+        msg = Message('Password reset requested', sender = 'support@svbakewell.com', recipients = [form.email.data])
         msg.html = """
         Hello {0},
         Password reset request has been initiated for you account to reset the password please click the link below

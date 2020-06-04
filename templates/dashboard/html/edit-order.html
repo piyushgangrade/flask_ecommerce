@@ -8,7 +8,7 @@
                     <h4 class="title">Edit Order</h4>
                 </div>
                 <div class="card-content">
-                    <p>Order ID : {{product.id}}</p>
+                    <p>Order ID : {{product.order_id}}</p>
                     <p>Customer Name : {{ product.buyer_name }}</p>
                     <p>Product Name : {{ product.product_name }}</p>
                     <p>Product Quantity : {{ product.product_quantity }}</p>
@@ -16,8 +16,8 @@
                     <p>Customer Mobile : {{ product.mobile_no }}</p>
                     <p>Payment Option : {{ product.payment_option }}</p>
                     <p>Order Date : {{ product.buy_time }}</p>
-                    <p><a class="btn btn-danger" href="{{url_for('dashboard_delivered', order_id=product.id, deliv=1)}}">Make Delivered</a></p>
-                    <p><a class="btn btn-secondary" href="{{url_for('dashboard_delivered', order_id=product.id, deliv=0)}}">Make Undelivered</a></p>
+                    <p><a class="btn btn-success" href="{{url_for('dashboard_delivered', order_id=product.id, deliv=1)}}">Make Delivered</a>
+                        <a class="btn btn-danger" href="{{url_for('dashboard_delivered', order_id=product.id, deliv=0)}}">Make Undelivered</a></p>
                 </form>
                 </div>
             </div>
