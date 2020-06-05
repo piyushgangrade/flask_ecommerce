@@ -3,12 +3,13 @@
 
 ### Features
 
-1. Fully Functional Dashboard
+1. Functional Search
 2. Fully Responsive
 3. Mail Verifications
 4. Cart Managements
 5. SEO
-6. More....
+6. Admin Dashboard
+7.
 
 ### Usage
 
